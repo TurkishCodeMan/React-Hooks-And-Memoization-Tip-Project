@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
-import { memo, useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { memo, useState } from 'react';
+
 import { addItem } from '../store/items/actions';
+import { useItems } from './hooks/useItems';
+
 
 const Form = styled.form`
     margin:20px;
@@ -51,16 +53,12 @@ const Button = styled.button`
 
 
 const NewItem = memo(function NewItem() {
-    const dispatch = useDispatch();
 
     const [name, setName] = useState('');
 
     const [price, setPrice] = useState(0);
 
-    const addItemClick = useCallback(
-        (name, price) => dispatch(addItem(name, price)),
-        [dispatch]
-    );
+    const { bindActions } = useItems({ addItem });
 
     return (
         <Form>
@@ -85,7 +83,7 @@ const NewItem = memo(function NewItem() {
             <Button
                 data-testid="send"
                 onClick={e => {
-                    addItemClick(name, price);
+                    bindActions.addItem(name, price);
                     setName('');
                     setPrice(0);
                     e.preventDefault();

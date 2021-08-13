@@ -1,23 +1,24 @@
 import styled from "@emotion/styled";
 import { memo } from "react";
-import { useSelector } from "react-redux";
 import { useActions } from "./hooks/useActions";
 import { Box } from "./sharedCSS/shared";
-
 import { tipSelectUpdate } from "../store/tipSelect/actions"
+import { useSelector } from "react-redux";
 
 const Select = styled.select`
     width: 100%;
 `;
 
 const TipSelect = memo(function TipSelect() {
+
     const tipPercentage = useSelector(state => state.tipPercentage);
     const actions = useActions({ tipSelectUpdate });
 
     return (
         <Box>
-            <label>Tip Select</label>
+            <label htmlFor="select">Tip Select</label>
             <Select
+                id="select"
                 value={tipPercentage}
                 onChange={e => actions.tipSelectUpdate(e.target.value)}
             >

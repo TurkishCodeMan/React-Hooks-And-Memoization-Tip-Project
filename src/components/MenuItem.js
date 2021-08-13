@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { memo } from "react";
+import { selectItemTotal } from "../store/items/selectors";
 import { toCurrency } from "../utilities";
 import { removeItem, updatePrice, updateQuantity } from "../store/items/actions"
 import { useActions } from "./hooks/useActions";
-import { useSummary } from "./hooks/useSummary";
 import { useSelector } from "react-redux";
-import { selectItemTotal } from "../store/items/selectors";
+
 const MenuItemContainer = styled.div`
     display: flex;
     align-items: flex-start;
@@ -38,9 +38,9 @@ const MenuItem = memo(function MenuItem({
     price,
     quantity = 1,
 }) {
-    const items = useSelector(state => state.items);
     const itemActions = useActions({ removeItem, updatePrice, updateQuantity });
-    const selectItemTotall = selectItemTotal(items, { id: id })
+    const items = useSelector(state => state.items)
+    const selectItemTotalValue = selectItemTotal(items, { id: id })
 
     return (
         <MenuItemContainer>
@@ -64,9 +64,9 @@ const MenuItem = memo(function MenuItem({
             </ShowArea>
             <ShowArea>
                 <p>Total</p>
-                <span >{toCurrency(selectItemTotall)}</span>
+                <span >{toCurrency(selectItemTotalValue)}</span>
             </ShowArea>
-            <button onClick={e => itemActions.removeItem(id)}>Remove</button>
+            <button onClick={() => itemActions.removeItem(id)}>Remove</button>
         </MenuItemContainer>
     )
 });

@@ -3,7 +3,6 @@ import { memo } from "react";
 import { useItems } from "./hooks/useItems";
 import MenuItem from "./MenuItem";
 
-
 const ItemsContainer = styled.div`
     width: 100%;
     background-color: #fafafa;
@@ -17,7 +16,8 @@ const ItemsContainer = styled.div`
 
 const MenuItems = memo(function MenuItems() {
 
-    const { items } = useItems();
+    var { items } = useItems();
+
 
     if (!(items && items.length > 0)) {
         items = [];
@@ -27,7 +27,10 @@ const MenuItems = memo(function MenuItems() {
         <ItemsContainer>
             {
                 items.map(item => (
-                    <MenuItem key={item.id} {...item} />
+                    <MenuItem
+                        key={item.id}
+                        {...item}
+                    />
                 ))
             }
         </ItemsContainer>

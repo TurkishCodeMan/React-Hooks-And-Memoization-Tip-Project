@@ -1,5 +1,4 @@
 import { expect, test } from "@jest/globals";
-import { render } from "@testing-library/react";
 import { useItems } from "../hooks/useItems";
 import { renderHook } from "@testing-library/react-hooks";
 import { Provider } from "react-redux";

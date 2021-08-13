@@ -2,6 +2,7 @@ export const ITEM_ADDED = "ITEM_ADDED";
 export const ITEM_REMOVED = "ITEM_REMOVED";
 export const ITEM_PRICE_UPDATE = "ITEM_PRICE_UPDATE";
 export const ITEM_QUANTITY_UPDATE = "ITEM_QUANTITY_UPDATE";
+export const PET_ADDED = "PET_ADDED";
 
 export const addItem = (name, price) => {
     return {
@@ -9,6 +10,15 @@ export const addItem = (name, price) => {
         payload: {
             name,
             price
+        }
+    }
+}
+
+export const addPet = (pets) => {
+    return {
+        type: PET_ADDED,
+        payload: {
+            ...pets
         }
     }
 }

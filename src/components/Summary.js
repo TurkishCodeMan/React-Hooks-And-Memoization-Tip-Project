@@ -20,13 +20,12 @@ const SummaryLine = styled.p`
 
 const Summary = memo(function Summary() {
     const { subTotal, tipAmount, total } = useSummary();
-
     return (
         <Box>
             <FlexRight>
-                <SummaryLine>SubTotal: {toCurrency(subTotal)}</SummaryLine>
-                <SummaryLine>TipAmount: {toCurrency(tipAmount)}</SummaryLine>
-                <SummaryLine>Total: {toCurrency(total)}</SummaryLine>
+                <SummaryLine subTotal={subTotal} data-testid="subTotal">SubTotal: {toCurrency(subTotal)}</SummaryLine>
+                <SummaryLine data-testid="tipAmount">TipAmount: {toCurrency(tipAmount)}</SummaryLine>
+                <SummaryLine data-testid="total">Total: {toCurrency(total)}</SummaryLine>
             </FlexRight>
         </Box>
 

@@ -1,9 +1,17 @@
 import { expect, test } from "@jest/globals";
 import { render } from "@testing-library/react";
 import NewItem from "../NewItem";
+import { Provider } from "react-redux";
+import { store } from "../../store"
 
 test("new item send test", async () => {
-    const newItemForm = render(<NewItem />);
+    const newItemForm = render(
+        <Provider store={store}>
+            <NewItem />
+        </Provider>
+
+
+    );
     const name = await newItemForm.findByTestId("name");
 
     name.value = 'deneme';

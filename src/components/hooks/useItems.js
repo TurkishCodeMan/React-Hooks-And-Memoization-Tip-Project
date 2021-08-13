@@ -1,10 +1,9 @@
 import { useSelector } from "react-redux"
 import { useActions } from "./useActions";
-import { addItem } from "../../store/items/actions";
 
-export const useItems = () => {
+export const useItems = (actions) => {
     const items = useSelector(state => state.items);
-    const actions = useActions({ addItem });
+    const bindActions = useActions({ ...actions });
 
-    return { items, ...actions };
+    return { items, bindActions };
 };
