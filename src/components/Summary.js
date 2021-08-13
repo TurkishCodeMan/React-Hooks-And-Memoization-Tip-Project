@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 import { memo } from "react";
 import { toCurrency } from "../utilities";
-import { useSummary } from "./hooks/useSummary";
 import { Box } from "./sharedCSS/shared"
+import { useSelector } from "react-redux";
+import { selectSubTotal, selectTipAmount, selectTotal } from "../store/items/selectors";
 
 const FlexRight = styled.div`
 display: flex;
@@ -19,7 +20,9 @@ const SummaryLine = styled.p`
 `;
 
 const Summary = memo(function Summary() {
-    const { subTotal, tipAmount, total } = useSummary();
+    const subTotal = useSelector(selectSubTotal);
+    const tipAmount = useSelector(selectTipAmount);
+    const total = useSelector(selectTotal);
     return (
         <Box>
             <FlexRight>

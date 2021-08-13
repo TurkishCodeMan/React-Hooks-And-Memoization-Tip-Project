@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
 
 
-export const selectItems = (state) => state.items;
+export const selectItems = createSelector((state) => state.items, (items) => items);
 export const selectTipPercentage = (state) => state.tipPercentage;
 
 export const selectItem = (items, props) => {

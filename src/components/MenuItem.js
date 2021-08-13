@@ -3,8 +3,7 @@ import { memo } from "react";
 import { selectItemTotal } from "../store/items/selectors";
 import { toCurrency } from "../utilities";
 import { removeItem, updatePrice, updateQuantity } from "../store/items/actions"
-import { useActions } from "./hooks/useActions";
-import { useSelector } from "react-redux";
+import { useItems } from "./hooks/useItems";
 
 const MenuItemContainer = styled.div`
     display: flex;
@@ -38,8 +37,7 @@ const MenuItem = memo(function MenuItem({
     price,
     quantity = 1,
 }) {
-    const itemActions = useActions({ removeItem, updatePrice, updateQuantity });
-    const items = useSelector(state => state.items)
+    const { items, bindActions } = useItems({ removeItem, updatePrice, updateQuantity });
     const selectItemTotalValue = selectItemTotal(items, { id: id })
 
     return (
@@ -50,7 +48,7 @@ const MenuItem = memo(function MenuItem({
                     type="number"
                     placeholder="Price"
                     value={price}
-                    onChange={e => itemActions.updatePrice(id, e.target.value)}
+                    onChange={e => bindActions.updatePrice(id, e.target.value)}
                 />
             </ShowArea>
             <ShowArea>
@@ -59,14 +57,14 @@ const MenuItem = memo(function MenuItem({
                     type="number"
                     value={quantity}
                     data-testid="quantity"
-                    onChange={e => itemActions.updateQuantity(id, e.target.value)}
+                    onChange={e => bindActions.updateQuantity(id, e.target.value)}
                 />
             </ShowArea>
             <ShowArea>
                 <p>Total</p>
                 <span >{toCurrency(selectItemTotalValue)}</span>
             </ShowArea>
-            <button onClick={() => itemActions.removeItem(id)}>Remove</button>
+            <button onClick={() => bindActions.removeItem(id)}>Remove</button>
         </MenuItemContainer>
     )
 });
