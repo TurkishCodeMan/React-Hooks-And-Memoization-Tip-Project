@@ -1,24 +1,41 @@
-import { expect, test } from "@jest/globals";
-import { render } from "@testing-library/react";
+import { expect, test, jest } from "@jest/globals";
+import { render, cleanup } from "@testing-library/react";
 import NewItem from "../NewItem";
-import { Provider } from "react-redux";
-import { store } from "../../store"
+import { Provider, } from "react-redux";
+import { Simulate } from "react-dom/test-utils";
+import * as  mockAction from "../../store/items/actions"
+import store from "../../store";
+import React from "react";
 
-test("new item send test", async () => {
-    const newItemForm = render(
+afterAll(cleanup);
+
+const flushPromises = () => {
+    return new Promise(resolve => {
+        setTimeout(resolve, 0);
+    })
+}
+
+test("new item send test initial state sending", async () => {
+    const mockAddItem = jest.fn().mockReturnValue((name, price) => ({}));
+
+    const initialStateForFirstUseStateCall = 'aa'
+    const initialStateForSecondUseStateCall = 4989
+
+    React.useState = jest.fn()
+        .mockReturnValueOnce([initialStateForFirstUseStateCall, jest.fn()])
+        .mockReturnValueOnce([initialStateForSecondUseStateCall, jest.fn()])
+
+    mockAction.addItem = mockAddItem;
+
+    const { container, getByLabelText, getByText } = render(
         <Provider store={store}>
             <NewItem />
         </Provider>
-
-
     );
-    const name = await newItemForm.findByTestId("name");
+    const send = await getByText("Send")
 
-    name.value = 'deneme';
-
-    const send = await newItemForm.findByTestId("send");
-
-    send.click();
-
-    expect(name.value).toContain("")
+    Simulate.click(send);
+    await flushPromises();
+    expect(mockAddItem).toHaveBeenCalledTimes(1);
+    expect(mockAddItem).toHaveBeenCalledWith(initialStateForFirstUseStateCall, initialStateForSecondUseStateCall);
 })

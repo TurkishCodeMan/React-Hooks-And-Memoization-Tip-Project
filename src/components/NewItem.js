@@ -61,7 +61,7 @@ const NewItem = memo(function NewItem() {
     const { bindActions } = useItems({ addItem });
 
     return (
-        <Form>
+        <Form data-testid="form">
             <InputArea>
                 <Label htmlFor='nameInput'>Name</Label>
                 <Input id='nameInput'
