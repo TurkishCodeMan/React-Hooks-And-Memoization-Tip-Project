@@ -10,6 +10,11 @@ module.exports = {
             functions: 19,
             lines: 18
         }
-    }
+    },
+    coveragePathIgnorePatterns: [
+        "/src/index.js",
+        "/src/setupTests.js",
+        "/src/reportWebVitals.js",
+    ]
 
 }
