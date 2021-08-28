@@ -7,7 +7,6 @@ import { getAllPets } from "../store/items/reducer";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-
 function Calculator() {
 
     const dispatch = useDispatch();
@@ -20,7 +19,7 @@ function Calculator() {
     useEffect(() => {
         getAPICall();
     }, [])
-
+    console.log("CALCULATOR RENDER")
     return (
         <div>
 

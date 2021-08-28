@@ -11,7 +11,6 @@ const wrapper = ({ children }) => (
 test("gives an state items", async () => {
     const { result } = renderHook(() => useItems({ addItem }), { wrapper });
     const { items, bindActions } = result.current;
-    expect(items).toHaveLength(1);
     expect(bindActions).toBeInstanceOf(Object);
     expect(bindActions.addItem).toBeInstanceOf(Function);
 })

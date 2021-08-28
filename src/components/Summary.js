@@ -23,6 +23,7 @@ const Summary = memo(function Summary() {
     const subTotal = useSelector(selectSubTotal);
     const tipAmount = useSelector(selectTipAmount);
     const total = useSelector(selectTotal);
+    console.log("Summary rendered")
     return (
         <Box>
             <FlexRight>

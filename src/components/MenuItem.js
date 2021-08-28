@@ -2,8 +2,7 @@ import styled from "@emotion/styled";
 import { memo } from "react";
 import { selectItemTotal } from "../store/items/selectors";
 import { toCurrency } from "../utilities";
-import { removeItem, updatePrice, updateQuantity } from "../store/items/actions"
-import { useItems } from "./hooks/useItems";
+
 
 const MenuItemContainer = styled.div`
     display: flex;
@@ -36,10 +35,14 @@ const MenuItem = memo(function MenuItem({
     name,
     price,
     quantity = 1,
+    removeItem,
+    updatePrice,
+    updateQuantity,
 }) {
-    const { items, bindActions } = useItems({ removeItem, updatePrice, updateQuantity });
-    const selectItemTotalValue = selectItemTotal(items, { id: id })
 
+    const selectSubTotalValue = selectItemTotal(price, quantity);
+
+    console.log("render menu ıtem", name)
     return (
         <MenuItemContainer>
             <ShowArea>
@@ -48,7 +51,7 @@ const MenuItem = memo(function MenuItem({
                     type="number"
                     placeholder="Price"
                     value={price}
-                    onChange={e => bindActions.updatePrice(id, e.target.value)}
+                    onChange={e => updatePrice(id, e.target.value)}
                 />
             </ShowArea>
             <ShowArea>
@@ -57,14 +60,14 @@ const MenuItem = memo(function MenuItem({
                     type="number"
                     value={quantity}
                     data-testid="quantity"
-                    onChange={e => bindActions.updateQuantity(id, e.target.value)}
+                    onChange={e => updateQuantity(id, e.target.value)}
                 />
             </ShowArea>
             <ShowArea>
                 <p>Total</p>
-                <span >{toCurrency(selectItemTotalValue)}</span>
+                <span >{toCurrency(selectSubTotalValue)}</span>
             </ShowArea>
-            <button onClick={() => bindActions.removeItem(id)}>Remove</button>
+            <button onClick={() => removeItem(id)}>Remove</button>
         </MenuItemContainer>
     )
 });

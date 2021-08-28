@@ -9,11 +9,13 @@ import * as  mockSelectors from "../../store/items/selectors"
 afterAll(cleanup);
 
 test("display default quantity must 1", async () => {
-    const mockRemoveItem = jest.fn().mockReturnValue((id) => ({}));
-    const mockSelectItemTotalValue = jest.fn().mockReturnValue((id) => ({}));
+    //const mockRemoveItem = jest.fn().mockReturnValue((id) => ({}));
+    // const mockSelectItemTotalValue = jest.fn().mockReturnValue((id) => ({}));
 
-    mockAction.removeItem = mockRemoveItem;
-    mockSelectors.selectItemTotal = mockSelectItemTotalValue;
+    const removeFunc = jest.fn();
+
+    //  mockAction.removeItem = mockRemoveItem;
+    //  mockSelectors.selectItemTotal = mockSelectItemTotalValue;
     const item = {
         id: 44,
         name: 'a',
@@ -21,16 +23,14 @@ test("display default quantity must 1", async () => {
         quantity: 1,
     }
     const { container, getByText, getByTestId } = render(
-        <Provider store={store}>
-            <MenuItem {...item} />
-        </Provider>
+        <MenuItem {...item} removeItem={removeFunc} />
     );
+
     const quantity = getByTestId("quantity");
     const removeButton = getByText("Remove");
     removeButton.click();
-
     expect(quantity.value).toContain(1);
-    expect(mockRemoveItem).toHaveBeenCalledTimes(1);
-    expect(mockRemoveItem).toHaveBeenCalledWith(44);
+    expect(removeFunc).toHaveBeenCalledTimes(1);
+    expect(removeFunc).toHaveBeenCalledWith(44);
 
 })

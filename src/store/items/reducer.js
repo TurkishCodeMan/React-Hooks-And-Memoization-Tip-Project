@@ -11,6 +11,8 @@ let id = 1;
 
 const initialState = [
     { id: id++, name: 'Sucuk', price: 36, quantity: 1 },
+    { id: id++, name: 'Muz', price: 48, quantity: 1 },
+
 ];
 
 

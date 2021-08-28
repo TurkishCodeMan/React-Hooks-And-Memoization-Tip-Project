@@ -8,6 +8,7 @@
       ],
       "@babel/preset-env"
     ],
+  
     "env": {
       "test": {
         "presets": [
@@ -22,5 +23,5 @@
         ]
       }
     }
-  }
+}
   

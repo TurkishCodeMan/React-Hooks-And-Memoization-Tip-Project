@@ -1,26 +1,30 @@
 import styled from "@emotion/styled";
-import { memo } from "react";
 import { Box } from "./sharedCSS/shared";
 import { tipSelectUpdate } from "../store/tipSelect/actions"
-import { useSelector } from "react-redux";
-import { useItems } from "./hooks/useItems";
+import { useSelector, useDispatch } from "react-redux";
+import { useCallback } from "react";
 
 const Select = styled.select`
     width: 100%;
 `;
 
-const TipSelect = memo(function TipSelect() {
+const TipSelect = function TipSelect() {
+    const dispatch = useDispatch();
 
+    //Bu değiştiği için rerender tipUpdate değişmedi !!
     const tipPercentage = useSelector(state => state.tipPercentage);
-    const { bindActions } = useItems({ tipSelectUpdate });
+    const tipUpdate = useCallback((tip) => {
+        return dispatch(tipSelectUpdate(tip));
+    });
 
+    console.log("render tip slect")
     return (
         <Box>
             <label htmlFor="select">Tip Select</label>
             <Select
                 id="select"
                 value={tipPercentage}
-                onChange={e => bindActions.tipSelectUpdate(e.target.value)}
+                onChange={e => tipUpdate(e.target.value)}
             >
                 <option key={15} value={15}>15%</option>
                 <option key={20} value={20}>20%</option>
@@ -28,7 +32,7 @@ const TipSelect = memo(function TipSelect() {
             </Select>
         </Box>
     )
-})
+}
 
 
 export default TipSelect;

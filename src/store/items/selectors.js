@@ -21,6 +21,7 @@ export const selectTotal = createSelector([selectSubTotal, selectTipAmount], (su
     return subTotal + paidAmount;
 })
 
-export const selectItemTotal = createSelector([selectItem], (item) => {
-    return item.price * item.quantity;
-})
+export const selectItemTotal = (price, quantity) => {
+    console.log(price, quantity)
+    return price * quantity;
+}
